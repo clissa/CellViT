@@ -12,6 +12,7 @@ import numpy as np
 from pathlib import Path
 from typing import Union
 import argparse
+from tqdm.auto import tqdm
 
 
 def convert_monuseg(
@@ -39,7 +40,7 @@ def convert_monuseg(
 
         # images
         images = [f for f in sorted((input_path_part / "images").glob("*.tif"))]
-        for img_path in images:
+        for img_path in tqdm(images):
             loaded_image = Image.open(img_path)
             resized = loaded_image.resize(
                 (1024, 1024), resample=Image.Resampling.LANCZOS
@@ -48,7 +49,7 @@ def convert_monuseg(
             resized.save(new_img_path)
         # masks
         annotations = [f for f in sorted((input_path_part / "labels").glob("*.xml"))]
-        for annot_path in annotations:
+        for annot_path in tqdm(annotations):
             binary_mask = np.transpose(np.zeros((1000, 1000)))
 
             # extract xml file
