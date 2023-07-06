@@ -43,3 +43,7 @@ slurm
 # example
 example/output
 outputs
+
+# data
+cell_segmentation/datasets/MoNuSeg
+cell_segmentation/datasets/fluocells*
